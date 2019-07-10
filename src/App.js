@@ -1,26 +1,50 @@
 import React from 'react';
-import logo from './logo.svg';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const COUNT_LIMIT = 200;
+
+// can we use React hooks instead??
+// probably but for now we do it the old 
+// fashioned way
+class App extends React.Component {
+
+    static propTypes = {
+      cookies: instanceOf(Cookies).isRequired
+    };
+
+   constructor( props ) {
+     super( props );
+
+     const { cookies } = props;
+     this.state = {
+         count: parseInt(cookies.get('count')) || 0,
+     };
+   }
+
+   componentDidMount(){
+      const { cookies } = this.props;
+      this.setState((prevState) => ({
+          count: prevState.count + 1
+      }), function () {cookies.set('count', this.state.count, { path: '/' })});
+   }
+
+   render(){
+       var hidden = this.state.count > COUNT_LIMIT ? 
+            <div>You are in!</div> : 
+            <p>
+              Number of hits: {this.state.count}
+            </p>;
+
+       return (
+        <div className="App">
+          <header className="App-header">
+	    {hidden}
+          </header>
+        </div>
+       );
+   }
 }
 
-export default App;
+export default withCookies(App);

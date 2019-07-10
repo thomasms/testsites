@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "react": "^16.8.6",
+    "react-cookie": "^4.0.1",
     "react-dom": "^16.8.6",
+    "react-retro-hit-counter": "^1.0.1",
     "react-scripts": "3.0.1"
   },
   "scripts": {
