@@ -7,7 +7,7 @@
     "react-cookie": "^4.0.1",
     "react-dom": "^16.10.1",
     "react-retro-hit-counter": "^1.0.1",
-    "react-scripts": "3.0.1"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
